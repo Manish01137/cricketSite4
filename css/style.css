@@ -65,9 +65,17 @@ p { margin: 0 0 1em; color: var(--muted); }
   color: var(--muted);
   padding: 8px 0;
 }
-.topbar .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-.topbar .ticker { display: flex; gap: 20px; overflow: hidden; }
+.topbar .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: nowrap; }
+.topbar .ticker {
+  display: flex; gap: 20px; align-items: center;
+  overflow: hidden; white-space: nowrap;
+  flex: 1; min-width: 0;
+}
+/* show only the first span by default — prevents flash before JS rotates */
+.topbar .ticker span { overflow: hidden; text-overflow: ellipsis; }
+.topbar .ticker span ~ span { display: none; }
 .topbar .ticker span::before { content: "●"; color: var(--green); margin-right: 6px; }
+.topbar .socials { white-space: nowrap; }
 .topbar .socials a { margin-left: 12px; color: var(--muted); }
 .topbar .socials a:hover { color: var(--gold); }
 
@@ -515,8 +523,11 @@ footer .disclaimer { background: rgba(239,68,68,.08); border: 1px solid rgba(239
   footer .grid { grid-template-columns: 1fr 1fr; }
   .stats-strip .grid { grid-template-columns: 1fr 1fr; gap: 18px; }
   .steps { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .topbar .row { justify-content: center; text-align: center; }
+  /* Compact topbar on tablet — single ticker line, no socials */
+  .topbar { padding: 6px 0; font-size: .75rem; }
+  .topbar .row { justify-content: center; text-align: center; gap: 8px; }
   .topbar .socials { display: none; }
+  .topbar .ticker { justify-content: center; }
   .section { padding: 64px 0; }
   /* hero card and pitch shrink */
   .id-card { padding: 22px; }
@@ -550,6 +561,8 @@ footer .disclaimer { background: rgba(239,68,68,.08); border: 1px solid rgba(239
 
 @media (max-width: 720px) {
   :root { --nav-h: 64px; }
+  /* Hide the topbar on phones so the navbar sits at the very top */
+  .topbar { display: none; }
   h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   h2 { font-size: clamp(1.4rem, 6vw, 1.9rem); }
   .card-grid, .card-grid.cols-2, .card-grid.cols-4, .form .row { grid-template-columns: 1fr; }
