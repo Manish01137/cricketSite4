@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i '' 's|>💬 WhatsApp Now</a>|><span class=\"wa-ico\"></span> WhatsApp Now</a>|' get-id.html)",
+      "Bash(sed -i '' 's|target=\"_blank\" rel=\"noopener\">Open Chat</a>|target=\"_blank\" rel=\"noopener\"><span class=\"wa-ico\"></span> Open Chat</a>|' contact.html)",
+      "Bash(python3 -)"
+    ]
+  }
+}
